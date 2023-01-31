@@ -1,27 +1,99 @@
 let choiceOptions = ["Rock", "Paper", "Scissors"];
+let compChoice;
+let playerChoice;
+let playerTally = 0;
+let compTally = 0;
 
-
-function rockPaperScissors() {
-  let compChoice = choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
+function getCompChoice() {
+  compChoice = choiceOptions[Math.floor(Math.random() * choiceOptions.length)];
   console.log(compChoice);
-    let playerChoice = prompt("Rock, Paper or Scissors?");
-    if (playerChoice === compChoice) {
-    console.log("It's a draw!");
-  } else if (playerChoice == "Rock" && compChoice == "Paper") {
-    console.log("Paper beats Rock! You lose!");
-  } else if (playerChoice == "Rock" && compChoice == "Scissors") {
-    console.log("Rock beats Scissors!, you win!");
-  } else if (playerChoice == "Scissors" && compChoice == "Rock") {
-    console.log("Rock beats Scissors! You lose!");
-  } else if (playerChoice == "Scissors" && compChoice == "Paper") {
-    console.log("Scissors beats Paper! You win!");
-  } else if (playerChoice == "Paper" && compChoice == "Scissors") {
-    console.log("Scissors beats Paper! You lose!");
-  } else if (playerChoice == "Paper" && compChoice == "Rock") {
-    console.log("Paper beats Rock! You win!");
-  } else {
-    console.log("please enter a valid choice")
-  }
-
+  return compChoice;
 }
-rockPaperScissors();
+
+function getPlayerChoice() {
+  playerChoice = prompt("Rock, Paper, Scissors?");
+  console.log(playerChoice);
+  return playerChoice;
+}
+
+function gameRound() {
+  getPlayerChoice();
+  getCompChoice();
+  if (playerChoice.toLowerCase() == compChoice.toLowerCase()) {
+    console.log("It's a draw!");
+  } else if (
+    playerChoice.toLowerCase() == "rock" &&
+    compChoice.toLowerCase() == "paper"
+  ) {
+    console.log("Paper beats Rock! You Lose!");
+    compTally++;
+  } else if (
+    playerChoice.toLowerCase() == "rock" &&
+    compChoice.toLowerCase() == "scissors"
+  ) {
+    console.log("Rock beats Scissors! You win!");
+    playerTally++;
+  } else if (
+    playerChoice.toLowerCase() == "paper" &&
+    compChoice.toLowerCase() == "rock"
+  ) {
+    console.log("Paper beats rock! You win!");
+    playerTally++;
+  } else if (
+    playerChoice.toLowerCase() == "paper" &&
+    compChoice.toLowerCase() == "scissors"
+  ) {
+    console.log("Scissors beats Paper! You lose!");
+    compTally++;
+  } else if (
+    playerChoice.toLowerCase() == "scissors" &&
+    compChoice.toLowerCase() == "rock"
+  ) {
+    console.log("Rock beats Scissors! You lose!");
+    compTally++;
+  } else if (
+    playerChoice.toLowerCase() == "scissors" &&
+    compChoice.toLowerCase() == "paper"
+  ) {
+    console.log("Scissors beats paper! You win!");
+    playerTally++;
+  }
+}
+
+function tallyCount() {
+  if (playerTally > compTally) {
+    console.log(
+      "Your score was " +
+        playerTally +
+        " and the computers score was " +
+        compTally +
+        ". You win!"
+    );
+  } else if (playerTally < compTally) {
+    console.log(
+      "Your score was " +
+        playerTally +
+        " and the computers score was " +
+        compTally +
+        ". You lose!"
+    );
+  } else {
+    console.log(
+      "Your score was " +
+        playerTally +
+        " and the computers score was " +
+        compTally +
+        ". It's a draw!"
+    );
+  }
+}
+
+function game() {
+  for (let i = 0; i < 5; i++) {
+    gameRound();
+    console.log(playerTally, compTally);
+  }
+  tallyCount();
+}
+
+game();
